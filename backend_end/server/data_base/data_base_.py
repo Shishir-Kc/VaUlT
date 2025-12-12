@@ -1,16 +1,17 @@
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column,String
+from sqlmodel import SQLModel,Field
 import uuid
 
-Base = declarative_base()
+class UserBase(SQLModel):
+    email:str
+    username:str
 
+class User(UserBase,table=True):
+    id:uuid.UUID=Field(default_factory=uuid.uuid4,primary_key=True)
+    password:str
 
-class User_Account(Base):
-    __tablename__ = 'user'
-    id  = Column(primary_key=True,default=lambda:str(uuid.uuid4()),index=True)
-    username = Column(String)
-    password = Column(String)
-    email = Column(String)
+class UserCreate(UserBase):
+    password:str
 
-class User_Account_passwords():
-    ...
+class UseRead(UserBase):
+    id:uuid.UUID
+    
