@@ -1,8 +1,14 @@
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlmodel import create_engine,Session
 
-db_url = 'postgress://postgres:1234@localhost:5432/vault'
+
+
+
+db_url = 'postgresql://postgres:1234@localhost:5432/vault'
+
 engine = create_engine(url=db_url)
-session = sessionmaker(bind=engine,autoflush=False,autoommit=False)
 
+
+
+def get_session():
+    with Session(engine) as session:
+        yield session
