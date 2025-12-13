@@ -179,7 +179,7 @@ def update_password(form:UserPasswordCreate,id:str,user:Annotated[User,Depends(g
 
 
 @app.get("/users/me")
-def read_own_items(
+def read_own_info(
     current_user: Annotated[User, Depends(get_current_active_user)],
 )->UserRead:
 
