@@ -29,7 +29,6 @@ def get_current_user(session: Annotated[Session, Depends(get_session)],token: An
     user = get_user(session,username=token_data.username)
     if user is None:
         raise credentials_exception
-    print(f"user hehe{user}")
     return user
 
 
@@ -41,14 +40,11 @@ def get_user(session: Session, username: str):
 def authenticate_user(session:Session,username:str,password:str):
     user = get_user(session,username)
     if not user:
-        print('user does not exists !')
         return False
 
     if not verify_password(password,user.password):
-        print("invalid pass")
         return False
     
-    print(f"i am {user}")
     return user 
 
 
